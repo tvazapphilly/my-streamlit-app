@@ -14,7 +14,6 @@ audio_features = ['energy', 'tempo', 'danceability','loudness','liveness','valen
 df = df[~df.index.duplicated()]
 df = df.reset_index(drop=True)
 
-
 def scatter_plot(x,y, x_label, y_label):
     fig, ax = plt.subplots()
     sn.scatterplot(x=x, y=y, data=df, ax=ax)
@@ -76,11 +75,12 @@ st.markdown(
     """
 )
 
-st.markdown("So, by looking at the top 4 correlations...")
+st.markdown("So, by looking at the top 5 correlations...")
 st.markdown("- energy and loudness(0.8)")
-st.markdown("- danceability and valence(0.4)")
-st.markdown("- energy and valence(0.4)")
-st.markdown("- loudness and valence(0.4)")
+st.markdown("- danceability and loudness(0.6)")
+st.markdown("- danceability and valence(0.6)")
+st.markdown("- energy and valence(0.5)")
+st.markdown("- energy and danceability(0.5)")
 st.markdown("have the strongest relationships with each other.")
 st.markdown("*Let's take a closer look at each of these features*")
 
@@ -101,17 +101,32 @@ st.markdown(
 
 def scatter_plot():
     fig, ax = plt.subplots()
-    sn.scatterplot(x='danceability', y='valence', data=df, ax=ax)
-    ax.set_title('Danceability vs Valence')
-    ax.set_xlabel('Energy')
-    ax.set_ylabel('Valence')
+    sn.scatterplot(x='danceability', y='loudness', data=df, ax=ax)
+    ax.set_title('Danceability vs Loudness')
+    ax.set_xlabel('Danceability')
+    ax.set_ylabel('Loudness')
     st.pyplot(fig)
 scatter_plot()
 
 
 st.markdown(
     """
-    __Danceablity and Valence__: Songs with a good balance of danceability and valence (positive emotions) are likely to capture listeners' attention. A correlation of 0.4 between danceability and valence shows that tracks that are easier to dance to and bring positivite emotions tend to be more popular.
+    __Danceablity and Loudness__: The correlation between these two features is evident as both contribute to a song's overall appeal and energy. High danceability usually means the song has a strong rhythmic groove that makes people want to move, while loudness enhances the intensity and impact of the music.
+    """
+)
+
+def scatter_plot():
+    fig, ax = plt.subplots()
+    sn.scatterplot(x='danceability', y='valence', data=df, ax=ax)
+    ax.set_title('Danceability vs Valence')
+    ax.set_xlabel('Danceability')
+    ax.set_ylabel('Valence')
+    st.pyplot(fig)
+scatter_plot()
+
+st.markdown(
+    """
+    __Danceability and Valence__: Danceability measures how suitable a track is for dancing based on tempo, rhythm stability, beat strength, and overall regularity. Valence, on the other hand, indicates the musical positiveness conveyed by a track. High valence tracks sound more happy, cheerful, and euphoric. When a song combines high danceability with high valence, it becomes a feel-good anthem that's perfect for parties, celebrations, or just lifting your mood.
     """
 )
 
@@ -126,25 +141,24 @@ scatter_plot()
 
 st.markdown(
     """
-    __Energey and Valence__: A correlation of 0.4 between energy and valence shows that energetic songs that also convey a positive mood are more likely to be popular. High-energy tracks with a feel-good vibe can evoke excitement and joy, making them appealing to a wide audience.
+    __Energy and Valence__: Energy reflects the intensity and activity present in the music, while valence measures the emotional positivity conveyed. When a track is high in both, it means it's not only dynamic and intense but also cheerful and uplifting.
     """
 )
 
 def scatter_plot():
     fig, ax = plt.subplots()
-    sn.scatterplot(x='loudness', y='valence', data=df, ax=ax)
-    ax.set_title('Loudness vs Valence')
-    ax.set_xlabel('Loudness')
-    ax.set_ylabel('Valence')
+    sn.scatterplot(x='energy', y='danceability', data=df, ax=ax)
+    ax.set_title('Energy vs Danceability')
+    ax.set_xlabel('Energy')
+    ax.set_ylabel('Danceability')
     st.pyplot(fig)
 scatter_plot()
 
 st.markdown(
     """
-    __Loudness and Valence__: The correlation of 0.4 between loudness and valence shows that louder songs are often perceived as more positive. The emotional impact of louder, happier tracks can enhance the listening experience, leading to their increased popularity.
+    __Energy and Danceability__: Energy reflects the intensity and activity in the music, while danceability measures how suitable a track is for dancing based on tempo, rhythm stability, beat strength, and overall regularity. Songs that score high in both these features are dynamic, vibrant, and make you want to move.
     """
 )
-
 st.header("*So, what  really makes a song popular?*")
 st.markdown(
     """
