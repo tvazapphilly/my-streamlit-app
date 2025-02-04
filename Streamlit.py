@@ -16,7 +16,7 @@ df = df.reset_index(drop=True)
 
 def scatter_plot(x,y, x_label, y_label):
     fig, ax = plt.subplots()
-    sn.scatterplot(x=x, y=y, data=df, ax=ax)
+    sn.scatterplot(x=x, y=y, data=df, ax=ax, c = "green")
     ax.set_title(f'{x_label} vs {y_label}')
     ax.set_xlabel(x_label)
     ax.set_ylabel(y_label)
@@ -26,17 +26,20 @@ def correlation_heatmap():
     fig, ax = plt.subplots(figsize=(14, 10))
     numeric_df = df.select_dtypes(include=['float64', 'int64'])
     corr = numeric_df.corr()
-    sn.heatmap(corr, annot=True, cmap='coolwarm', fmt='.1f')
+    sn.heatmap(corr, annot=True, cmap='YlGn', fmt='.1f')
     ax.set_title('Correlation Heatmap')
     st.pyplot(fig)
 
 st.title('What makes a song popular?')
+st.image("spotify-logo.webp", width = 150)
+
 st.markdown("**Main Idea:**")
 st.markdown(
     """
     I want to analyze the factors that contribute to the popularity of different songs on Spotify by examining their audio features such as energy, tempo, danceability, and more. By using this data and visualizations, this project aims to identify the correlations among these features,and ultimately uncover insights into what makes a song popular. Understanding these patterns can provide valuable information for artists, producers, and the music industry in general, helping people craft songs that resonate with audiences and achieve popularity on streaming platforms like Spotify.
     """
 )
+
 
 st.markdown("**Table of Definitions:**")
 st.markdown(
@@ -62,8 +65,19 @@ multi = "- Pick 2 different audio features to see how they compare in making a s
 st.markdown("Comparing Audio Features:")
 st.markdown(multi)
 
+st.markdown(
+    """
+    <style>
+    .stSelectbox {
+        color: white !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 x_column = st.selectbox('Select the audio feature for the X axis', audio_features)
-y_column = st.selectbox('Select the audio feature for the Y axis', audio_features)
+y_column = st.selectbox('<p class = white-text"> Select the audio feature for the Y axis </p>', audio_features)
 
 scatter_plot(x_column, y_column, x_column,  y_column)
 st.markdown("Next, I am going to show all of the features to see which ones have the greatest correlation. ")
@@ -71,7 +85,7 @@ correlation_heatmap()
 
 st.markdown(
     """
-    This heatmap provides a clear visual comparison of how each audio feature compares with one another. Red boxes indicate a stronger correlation, while blue boxes signify a weaker correlation.
+    This heatmap provides a clear visual comparison of how each audio feature compares with one another. Dark green boxes indicate a stronger correlation, while the lighter yellow boxes signify a weaker correlation.
     """
 )
 
@@ -86,7 +100,7 @@ st.markdown("*Let's take a closer look at each of these features*")
 
 def scatter_plot():
     fig, ax = plt.subplots()
-    sn.scatterplot(x='energy', y='loudness', data=df, ax=ax)
+    sn.scatterplot(x='energy', y='loudness', data=df, ax=ax, c='green')
     ax.set_title('Energy vs Loudness')
     ax.set_xlabel('Energy')
     ax.set_ylabel('Loudness')
@@ -101,7 +115,7 @@ st.markdown(
 
 def scatter_plot():
     fig, ax = plt.subplots()
-    sn.scatterplot(x='danceability', y='loudness', data=df, ax=ax)
+    sn.scatterplot(x='danceability', y='loudness', data=df, ax=ax,  c ='green')
     ax.set_title('Danceability vs Loudness')
     ax.set_xlabel('Danceability')
     ax.set_ylabel('Loudness')
@@ -117,7 +131,7 @@ st.markdown(
 
 def scatter_plot():
     fig, ax = plt.subplots()
-    sn.scatterplot(x='danceability', y='valence', data=df, ax=ax)
+    sn.scatterplot(x='danceability', y='valence', data=df, ax=ax, c='green')
     ax.set_title('Danceability vs Valence')
     ax.set_xlabel('Danceability')
     ax.set_ylabel('Valence')
@@ -132,7 +146,7 @@ st.markdown(
 
 def scatter_plot():
     fig, ax = plt.subplots()
-    sn.scatterplot(x='energy', y='valence', data=df, ax=ax)
+    sn.scatterplot(x='energy', y='valence', data=df, ax=ax, c='green')
     ax.set_title('Energy vs Valence')
     ax.set_xlabel('Energy')
     ax.set_ylabel('Valence')
@@ -147,7 +161,7 @@ st.markdown(
 
 def scatter_plot():
     fig, ax = plt.subplots()
-    sn.scatterplot(x='energy', y='danceability', data=df, ax=ax)
+    sn.scatterplot(x='energy', y='danceability', data=df, ax=ax, c ='green')
     ax.set_title('Energy vs Danceability')
     ax.set_xlabel('Energy')
     ax.set_ylabel('Danceability')
@@ -159,9 +173,54 @@ st.markdown(
     __Energy and Danceability__: Energy reflects the intensity and activity in the music, while danceability measures how suitable a track is for dancing based on tempo, rhythm stability, beat strength, and overall regularity. Songs that score high in both these features are dynamic, vibrant, and make you want to move.
     """
 )
-st.header("*So, what  really makes a song popular?*")
+
+st.markdown("### So, What Really Makes a Song Popular?")
+
 st.markdown(
     """
-    From our data we can conclude that the most popular songs on Spotify often combine features such as high energy, loudness, danceability, and valence. These features work together to create engaging, enjoyable, and memorable listening experiences that appeal to a broad audience. By understanding and using these correlations, artists can create music that their listeners will enjoy and increases their chances of having a popular song.
+    From this analysis, it’s evident that the most popular songs on Spotify are characterized by a mix of high energy, loudness, danceability, and valence. These audio features work together to create an engaging, enjoyable, and memorable listening experience that appeals to a broad audience and brings people back. Understanding these patterns can provide valuable insights for the music industry in general, helping them create new songs that resonate with listeners and achieve popularity on platforms like Spotify.
+    """
+)
+
+st.markdown("### Key Insights:")
+
+st.markdown(
+    """
+    1. **High Energy & Loudness**:
+       Songs with high energy and loudness tend to be the most popular. This correlation indicates that lively, dynamic, and intense tracks are liked by listeners. These songs are often featured in social settings, where an upbeat atmosphere is used.
+    """
+)
+
+st.markdown(
+    """
+    2. **Danceability**:
+       The correlation between danceability and loudness, as well as between danceability and valence, suggests that songs with a strong rhythmic groove and an emotionally positive tone are highly appealing. Danceable tracks encourage physical movement and are perfect for social settings. 
+    """
+)
+st.markdown(
+    """
+    3. **Valence**:
+       High valence, which measures the positiveness of a track, is another key factor in song popularity. Songs that convey happiness and cheerfulness, are more likely to become songs that lift listeners’ moods and become go-to tracks for them.
+    """
+)
+
+st.markdown("### Practical Applications:")
+st.markdown(
+    """
+    - **For Artists & Producers**:
+      By using these insights, artists and producers can focus on creating music that embodies high energy, danceability, and positive emotions. This knowledge can guide them in the production process, from composing and arranging to mixing, and ensuring that their tracks meet listeners' preferences.
+    """
+)
+
+st.markdown(
+    """
+    - **For Listeners**:
+      Understanding these audio features can help listeners curate their playlists more effectively, selecting songs that align with their desired mood and activity. Knowing what makes a song popular can enhance their overall listening experience.
+    """
+)
+
+st.markdown(
+    """
+    In conclusion, our analysis has revealed that the intersections between energy, loudness, danceability, and valence is important when determining a song's popularity. By focusing on these key features, the music industry can continue to evolve and create tracks that captivate their audience. This project provides a foundation for further exploration into the idea of music analytics.
     """
 )
